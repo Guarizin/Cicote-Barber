@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin | Cicote Barber</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    .admin-shell {
+      width: min(880px, 92%);
+      margin: 0 auto;
+      padding: 6.2rem 0 3.2rem;
+    }
+
+    .admin-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.05rem 4%;
+      background: rgba(8, 8, 8, 0.82);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(181, 149, 60, 0.16);
+    }
+
+    .admin-brand {
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--color-gold);
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .admin-link {
+      border: 1px solid var(--color-divider);
+      padding: 0.56rem 1rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: border-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+    }
+
+    .admin-link:hover {
+      border-color: var(--color-gold);
+      color: var(--color-gold);
+      transform: translateY(-1px);
+    }
+
+    .admin-brand:focus-visible,
+    .admin-link:focus-visible {
+      outline: 2px solid var(--color-gold);
+      outline-offset: 2px;
+    }
+
+    .admin-panel {
+      border: 1px solid var(--color-divider);
+      background-color: var(--color-black-soft);
+      padding: 1.4rem;
+    }
+
+    .admin-panel h1 {
+      color: var(--color-white);
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      line-height: 1.15;
+      margin-bottom: 0.8rem;
+      max-width: 18ch;
+      letter-spacing: normal;
+      text-transform: none;
+    }
+
+    .admin-panel p {
+      color: rgba(244, 244, 244, 0.78);
+      line-height: 1.65;
+      max-width: 62ch;
+    }
+
+    .admin-note {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(181, 149, 60, 0.18);
+      color: rgba(244, 244, 244, 0.62);
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 540px) {
+      .admin-shell {
+        width: min(880px, 90%);
+        padding-top: 5.8rem;
+      }
+
+      .admin-link {
+        padding: 0.5rem 0.76rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="admin-header">
+    <a class="admin-brand" href="index.html">Cicote Barber</a>
+    <a class="admin-link" href="index.html">Voltar para home</a>
+  </header>
+
+  <main class="admin-shell">
+    <section class="admin-panel" aria-labelledby="admin-title">
+      <h1 id="admin-title">Painel administrativo em preparacao.</h1>
+      <p>Esta area sera usada para acompanhar e organizar os agendamentos da barbearia em um fluxo dedicado para gestao interna.</p>
+      <p class="admin-note">Etapa atual: interface institucional mantida para navegacao consistente do projeto.</p>
+    </section>
+  </main>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agendar | Cicote Barber</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    :root {
+      --gold-soft: rgba(181, 149, 60, 0.2);
+      --gold-strong: var(--color-gold);
+      --surface: #101010;
+      --surface-alt: #141414;
+      --text-soft: rgba(244, 244, 244, 0.76);
+      --danger: #ef4444;
+    }
+
+    body {
+      min-height: 100svh;
+      background: radial-gradient(circle at top right, rgba(181, 149, 60, 0.1), transparent 35%), #080808;
+    }
+
+    .booking-shell {
+      width: min(1140px, 92%);
+      margin: 0 auto;
+      padding: 6.25rem 0 4rem;
+    }
+
+    .booking-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.05rem 4%;
+      background: rgba(8, 8, 8, 0.78);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(181, 149, 60, 0.16);
+    }
+
+    .booking-brand {
+      color: var(--gold-strong);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: color 0.22s ease, opacity 0.22s ease;
+    }
+
+    .booking-brand:hover {
+      color: #ceb060;
+      opacity: 0.95;
+    }
+
+    .back-home {
+      border: 1px solid var(--gold-soft);
+      padding: 0.56rem 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      font-size: 0.76rem;
+      transition: border-color 0.25s ease, color 0.25s ease, background-color 0.25s ease, transform 0.25s ease;
+    }
+
+    .back-home:hover {
+      border-color: var(--gold-strong);
+      color: var(--gold-strong);
+      background-color: rgba(181, 149, 60, 0.08);
+      transform: translateY(-1px);
+    }
+
+    .booking-brand:focus-visible,
+    .back-home:focus-visible,
+    .confirm-button:focus-visible,
+    .field input:focus-visible,
+    .field select:focus-visible {
+      outline: 2px solid var(--gold-strong);
+      outline-offset: 2px;
+    }
+
+    .booking-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 1.2rem;
+      align-items: start;
+    }
+
+    .panel {
+      background-color: var(--surface);
+      border: 1px solid rgba(181, 149, 60, 0.22);
+      padding: 1.4rem;
+    }
+
+    .panel-title {
+      font-size: 1.55rem;
+      margin-bottom: 0.55rem;
+      line-height: 1.15;
+    }
+
+    .panel-copy {
+      color: var(--text-soft);
+      margin-bottom: 1.2rem;
+      line-height: 1.62;
+      max-width: 56ch;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .field {
+      display: grid;
+      gap: 0.42rem;
+    }
+
+    .field-full {
+      grid-column: 1 / -1;
+    }
+
+    .field label {
+      color: rgba(244, 244, 244, 0.9);
+      font-size: 0.88rem;
+      letter-spacing: 0.01em;
+    }
+
+    .field input,
+    .field select {
+      width: 100%;
+      border: 1px solid rgba(181, 149, 60, 0.2);
+      background-color: var(--surface-alt);
+      color: #f4f4f4;
+      padding: 0.74rem 0.75rem;
+      font-size: 0.95rem;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .field input:focus,
+    .field select:focus {
+      outline: none;
+      border-color: var(--gold-strong);
+      box-shadow: 0 0 0 3px rgba(181, 149, 60, 0.15);
+    }
+
+    .field .input-error {
+      border-color: var(--danger);
+      box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.1);
+    }
+
+    .error-message {
+      font-size: 0.78rem;
+      color: #fca5a5;
+      min-height: 1.1em;
+    }
+
+    .summary-list {
+      display: grid;
+      gap: 0.85rem;
+      margin-top: 0.65rem;
+    }
+
+    .summary-item {
+      border-top: 1px solid rgba(181, 149, 60, 0.2);
+      padding-top: 0.75rem;
+    }
+
+    .summary-label {
+      font-size: 0.74rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(244, 244, 244, 0.58);
+      margin-bottom: 0.18rem;
+    }
+
+    .summary-value {
+      color: #f4f4f4;
+      font-size: 1.02rem;
+      line-height: 1.35;
+      word-break: break-word;
+    }
+
+    .confirm-button {
+      margin-top: 1.3rem;
+      width: 100%;
+      border: 1px solid var(--gold-strong);
+      background-color: rgba(181, 149, 60, 0.16);
+      color: #f4f4f4;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.86rem 1.55rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .confirm-button:hover {
+      transform: translateY(-2px);
+      background-color: rgba(181, 149, 60, 0.24);
+      box-shadow: 0 8px 20px rgba(181, 149, 60, 0.15);
+    }
+
+    .confirm-button:active {
+      transform: translateY(0);
+    }
+
+    .confirm-button:disabled {
+      cursor: not-allowed;
+      opacity: 0.72;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .button-loading {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .spinner {
+      width: 0.9rem;
+      height: 0.9rem;
+      border-radius: 50%;
+      border: 2px solid rgba(244, 244, 244, 0.3);
+      border-top-color: #f4f4f4;
+      animation: spin 0.7s linear infinite;
+    }
+
+    .toast {
+      position: fixed;
+      right: 1.2rem;
+      bottom: 1.2rem;
+      background-color: rgba(8, 8, 8, 0.95);
+      color: #f4f4f4;
+      border: 1px solid rgba(181, 149, 60, 0.5);
+      padding: 0.8rem 0.95rem;
+      font-size: 0.87rem;
+      letter-spacing: 0.02em;
+      transform: translateY(14px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .toast.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @media (max-width: 920px) {
+      .booking-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .booking-shell {
+        padding-top: 6rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .booking-shell {
+        width: min(1140px, 90%);
+        padding-top: 6rem;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .panel {
+        padding: 1rem;
+      }
+
+      .panel-title {
+        font-size: 1.35rem;
+      }
+
+      .toast {
+        right: 0.8rem;
+        left: 0.8rem;
+        bottom: 0.8rem;
+        text-align: center;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .back-home,
+      .confirm-button,
+      .toast,
+      .booking-brand {
+        transition: none;
+      }
+
+      .spinner {
+        animation-duration: 1.6s;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="booking-header">
+    <a class="booking-brand" href="index.html" aria-label="Voltar para a home">Cicote Barber</a>
+    <a class="back-home" href="index.html">Voltar para home</a>
+  </header>
+
+  <main class="booking-shell">
+    <form class="booking-grid" id="booking-form" novalidate>
+      <section class="panel" aria-labelledby="form-title">
+        <h1 class="panel-title" id="form-title">Reserve seu horario</h1>
+        <p class="panel-copy">Preencha os dados para enviar seu pedido de horario com rapidez e clareza.</p>
+
+        <div class="form-grid">
+          <div class="field field-full">
+            <label for="nome">Nome completo</label>
+            <input id="nome" name="nome" type="text" autocomplete="name" aria-describedby="erro-nome" required>
+            <p class="error-message" id="erro-nome"></p>
+          </div>
+
+          <div class="field field-full">
+            <label for="telefone">Telefone</label>
+            <input id="telefone" name="telefone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="(11) 99999-9999" aria-describedby="erro-telefone" required>
+            <p class="error-message" id="erro-telefone"></p>
+          </div>
+
+          <div class="field field-full">
+            <label for="servico">Servico</label>
+            <select id="servico" name="servico" aria-describedby="erro-servico" required>
+              <option value="">Selecione</option>
+              <option value="Corte">Corte</option>
+              <option value="Barba">Barba</option>
+              <option value="Combo">Combo</option>
+            </select>
+            <p class="error-message" id="erro-servico"></p>
+          </div>
+
+          <div class="field">
+            <label for="data">Data</label>
+            <input id="data" name="data" type="date" aria-describedby="erro-data" required>
+            <p class="error-message" id="erro-data"></p>
+          </div>
+
+          <div class="field">
+            <label for="horario">Horario</label>
+            <select id="horario" name="horario" aria-describedby="erro-horario" required>
+              <option value="">Selecione</option>
+              <option value="09:00">09:00</option>
+              <option value="10:00">10:00</option>
+              <option value="11:00">11:00</option>
+              <option value="13:00">13:00</option>
+              <option value="14:00">14:00</option>
+              <option value="15:00">15:00</option>
+              <option value="16:00">16:00</option>
+              <option value="17:00">17:00</option>
+              <option value="18:00">18:00</option>
+            </select>
+            <p class="error-message" id="erro-horario"></p>
+          </div>
+        </div>
+      </section>
+
+      <aside class="panel" aria-labelledby="resumo-title">
+        <h2 class="panel-title" id="resumo-title">Resumo do agendamento</h2>
+        <p class="panel-copy">Confira o resumo ao lado antes de confirmar o envio.</p>
+
+        <div class="summary-list">
+          <div class="summary-item">
+            <p class="summary-label">Nome</p>
+            <p class="summary-value" id="resumo-nome">-</p>
+          </div>
+          <div class="summary-item">
+            <p class="summary-label">Servico</p>
+            <p class="summary-value" id="resumo-servico">-</p>
+          </div>
+          <div class="summary-item">
+            <p class="summary-label">Data</p>
+            <p class="summary-value" id="resumo-data">-</p>
+          </div>
+          <div class="summary-item">
+            <p class="summary-label">Horario</p>
+            <p class="summary-value" id="resumo-horario">-</p>
+          </div>
+        </div>
+
+        <button class="confirm-button" type="submit" id="confirmar-btn">Confirmar agendamento</button>
+      </aside>
+    </form>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">Agendamento enviado</div>
+
+  <script src="js/agendamento.js"></script>
+</body>
+</html>
