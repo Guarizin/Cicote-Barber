@@ -24,10 +24,6 @@
   padding-bottom: 0.78rem;
 }
 
-main {
-  overflow-x: hidden;
-}
-
 .section {
   padding: clamp(4.4rem, 9vw, 6.2rem) 0;
 }
