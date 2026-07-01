@@ -98,7 +98,8 @@
         service: appointmentInput.service,
         appointment_date: appointmentInput.appointment_date,
         appointment_time: appointmentInput.appointment_time,
-        status: "pendente"
+        status: "pendente",
+        created_at: appointmentInput.created_at || new Date().toISOString()
       };
 
       const { data, error } = await client

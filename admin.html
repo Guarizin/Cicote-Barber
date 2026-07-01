@@ -10,9 +10,9 @@
   <link rel="stylesheet" href="css/components.css">
   <style>
     .admin-shell {
-      width: min(880px, 92%);
+      width: min(1120px, 92%);
       margin: 0 auto;
-      padding: 6.2rem 0 3.2rem;
+      padding: 6.2rem 0 3.4rem;
     }
 
     .admin-header {
@@ -70,7 +70,7 @@
       font-size: clamp(1.6rem, 3vw, 2.2rem);
       line-height: 1.15;
       margin-bottom: 0.8rem;
-      max-width: 18ch;
+      max-width: 22ch;
       letter-spacing: normal;
       text-transform: none;
     }
@@ -87,6 +87,69 @@
       border-top: 1px solid rgba(181, 149, 60, 0.18);
       color: rgba(244, 244, 244, 0.62);
       font-size: 0.92rem;
+    }
+
+    .admin-state {
+      margin-top: 1.1rem;
+      padding: 0.9rem 0;
+      border-top: 1px solid rgba(181, 149, 60, 0.18);
+      color: rgba(244, 244, 244, 0.78);
+      min-height: 1.5rem;
+    }
+
+    .admin-state.is-error {
+      color: #fca5a5;
+    }
+
+    .table-wrap {
+      margin-top: 1rem;
+      border: 1px solid rgba(181, 149, 60, 0.2);
+      background-color: rgba(255, 255, 255, 0.01);
+      overflow-x: auto;
+    }
+
+    .appointments-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 820px;
+    }
+
+    .appointments-table thead th {
+      text-align: left;
+      font-size: 0.74rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(244, 244, 244, 0.66);
+      border-bottom: 1px solid rgba(181, 149, 60, 0.25);
+      padding: 0.72rem 0.8rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .appointments-table tbody td {
+      padding: 0.72rem 0.8rem;
+      border-bottom: 1px solid rgba(181, 149, 60, 0.12);
+      color: rgba(244, 244, 244, 0.9);
+      font-size: 0.92rem;
+      vertical-align: top;
+    }
+
+    .appointments-table tbody tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .status-pill {
+      border: 1px solid rgba(181, 149, 60, 0.28);
+      color: var(--color-gold);
+      padding: 0.12rem 0.45rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .hide {
+      display: none;
     }
 
     @media (max-width: 540px) {
@@ -109,9 +172,28 @@
 
   <main class="admin-shell">
     <section class="admin-panel" aria-labelledby="admin-title">
-      <h1 id="admin-title">Painel administrativo em preparacao.</h1>
-      <p>Esta area sera usada para acompanhar e organizar os agendamentos da barbearia em um fluxo dedicado para gestao interna.</p>
-      <p class="admin-note">Etapa atual: interface institucional mantida para navegacao consistente do projeto.</p>
+      <h1 id="admin-title">Agendamentos recebidos</h1>
+      <p>Painel demonstrativo somente leitura para acompanhar os registros enviados pelo formulario.</p>
+      <p class="admin-note">Ordenacao: mais recentes primeiro.</p>
+
+      <div id="admin-state" class="admin-state" role="status" aria-live="polite">Carregando agendamentos...</div>
+
+      <div class="table-wrap hide" id="table-wrap" aria-label="Tabela de agendamentos">
+        <table class="appointments-table">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Telefone</th>
+              <th>Servico</th>
+              <th>Data</th>
+              <th>Horario</th>
+              <th>Status</th>
+              <th>Criado em</th>
+            </tr>
+          </thead>
+          <tbody id="appointments-body"></tbody>
+        </table>
+      </div>
     </section>
   </main>
 

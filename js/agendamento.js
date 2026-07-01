@@ -287,23 +287,11 @@ function setLoadingState(isLoading) {
 }
 
 function mapErrorMessage(error) {
-  if (!window.CicoteSupabase) {
-    return "Agendamento indisponivel no momento.";
+  if (!error) {
+    return "Não foi possível enviar agora.";
   }
 
-  if (!error || !error.code) {
-    return "Nao foi possivel enviar o agendamento.";
-  }
-
-  if (error.code === "SUPABASE_CONNECTION_ERROR") {
-    return "Erro de conexao. Tente novamente.";
-  }
-
-  if (error.code === "SUPABASE_CONFIG_MISSING") {
-    return "Configuracao do Supabase ausente.";
-  }
-
-  return "Nao foi possivel enviar o agendamento.";
+  return "Não foi possível enviar agora.";
 }
 
 async function init() {
@@ -347,7 +335,9 @@ async function init() {
       phone: telefoneInput.value.trim(),
       service: servicoInput.value,
       appointment_date: dataInput.value,
-      appointment_time: horarioInput.value
+      appointment_time: horarioInput.value,
+      status: "pendente",
+      created_at: new Date().toISOString()
     };
 
     isSubmitting = true;
@@ -356,7 +346,7 @@ async function init() {
     try {
       const api = await ensureSupabaseReady();
       await api.createAppointment(appointmentPayload);
-      showToast("Agendamento enviado");
+      showToast("Agendamento recebido. Entraremos em contato.");
       bookingForm.reset();
       dataInput.min = getTodayIso();
       clearErrors();
